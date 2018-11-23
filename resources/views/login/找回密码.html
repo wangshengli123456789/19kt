@@ -1,0 +1,96 @@
+<!-- 作者：ljl -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<meta name="format-detection" content="telephone=no" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>找回密码</title>
+<link rel="stylesheet" href="css/public.css">
+<link rel="stylesheet" href="font/iconfont.css">
+<link rel="stylesheet" href="css/j-back-word.css">
+<!--[if lt IE 9]>
+  <script src="js/html5shiv.min.js"></script>
+<![endif]-->
+</head>
+<body>
+<div class="head">
+    <div class="head-cont">
+        <img src="imgs/logo.png" alt="" class="logo" />
+        <div class="tit">魔派企业级开源软件</div> |
+        <div class="txt">技术孵化梦想</div>
+    </div>
+</div>
+<form action="" class="back">
+    <div class="tit">找回密码</div>
+    <input type="text" class="input user" placeholder="手机号／邮箱"/>
+    <div class="item clear">
+        <input type="text" class="input fl yzm" placeholder="验证码"/>
+        <span class="fr f-yzm">发送验证码</span>
+    </div>
+    <input type="password" class="input password" placeholder="输入新密码"/>
+    <input type="password" class="input y-password" placeholder="再次输入新密码"/>
+    <input type="submit" class="sub" value="确 &nbsp; 定"/>
+</form>
+</body>
+</html>
+<script src="js/zepto.min.js"></script>
+<script>
+$(function(){
+    // 获取验证码
+    var flag = true; 
+    $('.f-yzm').click(function(){
+
+        var user = $('.user').val();
+        if(user == ''){
+            alert('手机号／邮箱不能为空！');
+        }else{
+            if(flag){
+                flag = false;
+                var s = 60;
+                var timer = setInterval(function(){
+                    s--;
+                    if(s>0){
+                        $('.f-yzm').html(s+'秒后获取');
+                    }else{
+                        s = 60;
+                        $('.f-yzm').html('获取验证码');
+                        flag = !flag;
+                        clearInterval(timer);
+                    }
+                },1000);
+            }else{
+                return;
+            }
+        }
+    });
+
+
+    $('.sub').on('click', function(){
+        var user = $('.user').val();
+        var yzm = $('.yzm').val();
+        var password = $('.password').val();
+        var y_password = $('.y-password').val();
+        if(user == ''){
+            alert('请输入手机号／邮箱');
+            return false
+        }
+        if(yzm == ''){
+            alert('请输入验证码');
+            return false
+        }
+        if(password == ''){
+            alert('请输入密码');
+            return false
+        }
+        if(y_password == ''){
+            alert('请再次输入密码');
+            return false
+        }else if(y_password != password){
+            alert('两次输入密码不一致');
+            return false
+        }
+    })
+})      
+</script>
